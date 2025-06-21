@@ -17,11 +17,12 @@ This is a full-stack investment tracking application built for managing family i
 
 ### Backend Architecture
 - **Runtime**: Node.js with Express.js
-- **Language**: TypeScript with ES modules
-- **Database ORM**: Drizzle ORM with PostgreSQL dialect
-- **Database Provider**: Neon Database (serverless PostgreSQL)
+- **Language**: TypeScript with ES modules (Frontend) + JavaScript ES modules (Backend)
+- **Database ORM**: Drizzle ORM with PostgreSQL dialect (Frontend) + Direct SQLite (Backend)
+- **Database Provider**: Neon Database (serverless PostgreSQL) + Local SQLite for backend simulation
 - **Session Management**: PostgreSQL-based sessions with connect-pg-simple
 - **Development**: Hot reload with tsx and Vite middleware integration
+- **Local Backend**: Complete Node.js + SQLite backend with price scraping simulation
 
 ### Project Structure
 - **Monorepo Setup**: Shared schema and types between client and server
@@ -49,8 +50,11 @@ This is a full-stack investment tracking application built for managing family i
 ### Backend Services
 - **Storage Interface**: Abstraction layer for data operations
 - **Memory Storage**: Development implementation (easily replaceable with database)
-- **Route System**: RESTful API structure ready for implementation
-- **Middleware**: Request logging and error handling
+- **SQLite Backend**: Complete local backend with database persistence
+- **Route System**: RESTful API structure with full CRUD operations
+- **Price Scraping**: Automated equity and mutual fund price updates
+- **Scheduled Updates**: Automatic price updates every 5 minutes
+- **Middleware**: Request logging, CORS, and error handling
 
 ## Data Flow
 
@@ -114,6 +118,9 @@ This is a full-stack investment tracking application built for managing family i
 - June 21, 2025: Fixed bar chart asset names to display horizontally without going off page
 - June 21, 2025: Increased chart sizes to better utilize available space
 - June 21, 2025: Implemented dynamic member management system with add/edit/delete functionality
+- June 21, 2025: Built complete local backend with Node.js + SQLite + Express
+- June 21, 2025: Implemented automated price scraping with scheduled updates
+- June 21, 2025: Added full RESTful API with CRUD operations for members and investments
 
 ## User Preferences
 

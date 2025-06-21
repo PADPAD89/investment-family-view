@@ -1,0 +1,138 @@
+You are continuing work on a React + Tailwind CSS desktop investment dashboard app, already designed based on UI from a Lovable prototype and developed partially using the previous prompt.
+
+The static layout, charts, and modal UI are already in place. Now, you will focus on making the app dynamic, functional, and interactive using React state/context, chart binding, and mock data flow.
+
+⚠️ All data is stored locally. No backend, no database. No API fetch logic yet.
+
+✅ PHASE 6: State Management (React Context)
+
+📌 Create a file: PortfolioContext.jsx in /src/context/
+
+Set up global context to hold:
+List of family members (e.g., ['Manas', 'Father', 'Mother'])
+
+
+Investments array:
+
+
+{
+  id,
+  member: 'Manas',
+  type: 'equity' | 'mutual_fund',
+  symbol: 'INFY',
+  name: 'Infosys Ltd',
+  quantity: 10,
+  buyPrice: 1500,
+  buyDate: '2024-01-01',
+  currentPrice: 1700
+}
+
+
+
+
+Functions: addInvestment, editInvestment, deleteInvestment
+
+
+
+Use useReducer for investment logic. Wrap <App /> with PortfolioProvider.
+
+✅ PHASE 7: Connect UI Components to State
+Replace mock data in:
+
+
+MainDashboard.jsx and all member dashboards
+
+
+InvestmentTable.jsx
+
+
+PieChart, BarChart, LineChart, StackedBarChart
+
+
+Source all investment and member data from PortfolioContext
+
+
+All charts must recompute when investments change
+
+
+
+✅ PHASE 8: Hook Up Modal Form
+Create a modal form component: InvestmentModal.jsx
+
+
+When submitted:
+
+
+Validate fields
+
+
+Call addInvestment() from context
+
+
+Close the modal
+
+
+Form type (Equity/Mutual Fund) should toggle field display
+
+
+After adding, UI must update all dashboards instantly
+
+
+
+✅ PHASE 9: Implement Data Calculations
+
+In utils/calculatePortfolio.js, create:
+getTotalInvested(investments)
+
+
+getCurrentValue(investments)
+
+
+getGainLoss(investments) → absolute + percent
+
+
+
+Use these in summary cards and table rows.
+
+✅ PHASE 10: Simulated Price Update (Optional for Now)
+
+For now:
+Create mock updatePrices() function in context
+
+
+Randomly update currentPrice field
+
+
+Trigger it every 15 minutes with setInterval()
+
+
+Charts and tables must auto-refresh
+
+
+
+Style/UX Notes:
+Use Tailwind classes for layout and responsive spacing
+
+
+Add green or red coloring in Gain/Loss values
+
+
+Add tooltip for charts if possible
+
+
+Confirm modal before deleting any investment
+
+
+
+🎯 GOAL: By the end, the app should allow:
+Adding investments per family member
+
+
+Dynamic updates to charts, tables, summary cards
+
+
+Viewing total and per-member investment picture with visual clarity
+
+
+
+🛑 Don’t use Redux or external libraries for state. Only use React, Tailwind, and Recharts.

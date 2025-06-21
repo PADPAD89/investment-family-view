@@ -7,29 +7,29 @@ import { PlusCircle, TrendingUp, TrendingDown, DollarSign, Wallet } from "lucide
 import { MainDashboard } from "@/components/MainDashboard";
 import { MemberDashboard } from "@/components/MemberDashboard";
 import { InvestmentModal } from "@/components/InvestmentModal";
-import { useInvestmentData } from "@/hooks/useInvestmentData";
+import { usePortfolio, type Investment } from "@/context/PortfolioContext";
 
 const Index = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editingInvestment, setEditingInvestment] = useState(null);
+  const [editingInvestment, setEditingInvestment] = useState<Investment | null>(null);
   const [selectedMember, setSelectedMember] = useState("");
-  const { investments, addInvestment, updateInvestment, deleteInvestment, members } = useInvestmentData();
+  const { state, addInvestment, editInvestment, deleteInvestment } = usePortfolio();
 
-  const handleAddInvestment = (member) => {
+  const handleAddInvestment = (member: string) => {
     setSelectedMember(member);
     setEditingInvestment(null);
     setIsModalOpen(true);
   };
 
-  const handleEditInvestment = (investment) => {
+  const handleEditInvestment = (investment: Investment) => {
     setEditingInvestment(investment);
     setSelectedMember(investment.member);
     setIsModalOpen(true);
   };
 
-  const handleSaveInvestment = (investmentData) => {
+  const handleSaveInvestment = (investmentData: Omit<Investment, 'id'>) => {
     if (editingInvestment) {
-      updateInvestment({ ...investmentData, id: editingInvestment.id });
+      editInvestment({ ...investmentData, id: editingInvestment.id });
     } else {
       addInvestment(investmentData);
     }
@@ -66,7 +66,7 @@ const Index = () => {
 
           <TabsContent value="main">
             <MainDashboard 
-              investments={investments} 
+              investments={state.investments} 
               onEditInvestment={handleEditInvestment}
               onDeleteInvestment={deleteInvestment}
             />
@@ -75,7 +75,7 @@ const Index = () => {
           <TabsContent value="manas">
             <MemberDashboard 
               member="Manas"
-              investments={investments.filter(inv => inv.member === "Manas")}
+              investments={state.investments.filter(inv => inv.member === "Manas")}
               onAddInvestment={() => handleAddInvestment("Manas")}
               onEditInvestment={handleEditInvestment}
               onDeleteInvestment={deleteInvestment}
@@ -85,7 +85,7 @@ const Index = () => {
           <TabsContent value="father">
             <MemberDashboard 
               member="Father"
-              investments={investments.filter(inv => inv.member === "Father")}
+              investments={state.investments.filter(inv => inv.member === "Father")}
               onAddInvestment={() => handleAddInvestment("Father")}
               onEditInvestment={handleEditInvestment}
               onDeleteInvestment={deleteInvestment}
@@ -95,7 +95,7 @@ const Index = () => {
           <TabsContent value="mother">
             <MemberDashboard 
               member="Mother"
-              investments={investments.filter(inv => inv.member === "Mother")}
+              investments={state.investments.filter(inv => inv.member === "Mother")}
               onAddInvestment={() => handleAddInvestment("Mother")}
               onEditInvestment={handleEditInvestment}
               onDeleteInvestment={deleteInvestment}

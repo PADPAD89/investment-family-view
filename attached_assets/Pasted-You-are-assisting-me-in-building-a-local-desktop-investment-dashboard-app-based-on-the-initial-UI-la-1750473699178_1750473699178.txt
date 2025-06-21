@@ -1,0 +1,60 @@
+You are assisting me in building a local desktop investment dashboard app based on the initial UI layout created in this GitHub repo. The app is meant to run in an Electron + React environment (macOS-focused). The design is based on a document that specifies modular, tab-based investment tracking for multiple family members.
+
+Use the repo’s existing Lovable-generated UI as a visual reference and start translating it into structured, maintainable React code with Tailwind CSS. Follow this frontend development workflow:
+
+⸻
+
+📁 FILE & STRUCTURE SETUP:
+	•	Organize the /src directory with subfolders:
+	•	/components — all reusable components (e.g., Charts, Tables)
+	•	/pages — for each tab: MainDashboard, MemberDashboard
+	•	/charts — pie, bar, line chart components
+	•	/utils — helper functions (e.g., investment calculators)
+	•	/styles — base styles or Tailwind config (if needed)
+
+🧩 TASK 1: Build Static Layouts
+	•	Convert each Lovable UI screen into a JSX page layout
+	•	Implement the tab navigation system (Main, Manas, Father, Mother)
+	•	Use placeholder values or mock data
+	•	Reference the design assets (SVGs, labels, spacings) from the repo
+
+📊 TASK 2: Build Chart Components
+	•	Create reusable chart components using Recharts:
+	•	Pie Chart: Asset class breakdown
+	•	Bar Chart: Individual investment performance
+	•	Line Chart: Portfolio value over time
+	•	Stacked Bar: Member-wise asset allocation
+	•	Place charts on respective pages with static mock data
+
+🧾 TASK 3: Build Investment Tables
+	•	Table columns:
+	•	Member | Asset Type | Investment Name | Units | Buy Price | Current Price | Invested Amt | Current Value | Gain/Loss (%)
+	•	Include sorting by Gain/Loss and filter by asset type
+	•	Use Tailwind classes for spacing, typography, colors (green/red for P&L)
+
+🧮 TASK 4: Summary Cards
+	•	For each tab, build a row of stat cards (Total Invested, Current Value, Gain/Loss)
+	•	Data is placeholder for now, pulled from mock objects
+
+🔧 TASK 5: Add/Edit Investment Modal
+	•	Form components based on asset type:
+	•	Equity: Ticker, Quantity, Buy Price, Buy Date
+	•	Mutual Fund: Fund Name, Units, NAV, Buy Date
+	•	Modal should open on button click and write back to local state (mock)
+
+⸻
+
+🔄 STATE MANAGEMENT & INTERACTIONS (Later Phase)
+	•	Use React Context or useReducer to manage state
+	•	Create a PortfolioContext that contains:
+	•	Family member list
+	•	Investments by type/member
+	•	Functions to add/update/delete
+
+⸻
+
+🎯 GOAL
+
+Build all static views first based on the Lovable repo design, then bind to dynamic state.
+Store mock investment data in a JS object to start.
+Do not implement database or price fetching yet.

@@ -12,7 +12,10 @@ type PortfolioAction =
   | { type: 'ADD_INVESTMENT'; payload: Omit<Investment, 'id'> }
   | { type: 'EDIT_INVESTMENT'; payload: Investment }
   | { type: 'DELETE_INVESTMENT'; payload: string }
-  | { type: 'UPDATE_PRICES'; payload: { id: string; currentPrice: number }[] };
+  | { type: 'UPDATE_PRICES'; payload: { id: string; currentPrice: number }[] }
+  | { type: 'ADD_MEMBER'; payload: string }
+  | { type: 'EDIT_MEMBER'; payload: { oldName: string; newName: string } }
+  | { type: 'DELETE_MEMBER'; payload: string };
 
 interface PortfolioContextType {
   state: PortfolioState;
@@ -20,6 +23,9 @@ interface PortfolioContextType {
   editInvestment: (investment: Investment) => void;
   deleteInvestment: (id: string) => void;
   updatePrices: () => void;
+  addMember: (name: string) => void;
+  editMember: (oldName: string, newName: string) => void;
+  deleteMember: (name: string) => void;
 }
 
 const initialState: PortfolioState = {
@@ -113,6 +119,29 @@ function portfolioReducer(state: PortfolioState, action: PortfolioAction): Portf
           return priceUpdate ? { ...inv, currentPrice: priceUpdate.currentPrice } : inv;
         })
       };
+    case 'ADD_MEMBER':
+      return {
+        ...state,
+        members: [...state.members, action.payload]
+      };
+    case 'EDIT_MEMBER':
+      return {
+        ...state,
+        members: state.members.map(member => 
+          member === action.payload.oldName ? action.payload.newName : member
+        ),
+        investments: state.investments.map(inv =>
+          inv.member === action.payload.oldName 
+            ? { ...inv, member: action.payload.newName }
+            : inv
+        )
+      };
+    case 'DELETE_MEMBER':
+      return {
+        ...state,
+        members: state.members.filter(member => member !== action.payload),
+        investments: state.investments.filter(inv => inv.member !== action.payload)
+      };
     default:
       return state;
   }
@@ -143,6 +172,18 @@ export function PortfolioProvider({ children }: { children: ReactNode }) {
     dispatch({ type: 'UPDATE_PRICES', payload: priceUpdates });
   };
 
+  const addMember = (name: string) => {
+    dispatch({ type: 'ADD_MEMBER', payload: name });
+  };
+
+  const editMember = (oldName: string, newName: string) => {
+    dispatch({ type: 'EDIT_MEMBER', payload: { oldName, newName } });
+  };
+
+  const deleteMember = (name: string) => {
+    dispatch({ type: 'DELETE_MEMBER', payload: name });
+  };
+
   // Auto-update prices every 15 minutes
   React.useEffect(() => {
     const interval = setInterval(updatePrices, 15 * 60 * 1000); // 15 minutes
@@ -155,7 +196,10 @@ export function PortfolioProvider({ children }: { children: ReactNode }) {
       addInvestment,
       editInvestment,
       deleteInvestment,
-      updatePrices
+      updatePrices,
+      addMember,
+      editMember,
+      deleteMember
     }}>
       {children}
     </PortfolioContext.Provider>

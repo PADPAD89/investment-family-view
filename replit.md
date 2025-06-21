@@ -43,6 +43,8 @@ This is a full-stack investment tracking application built for managing family i
 - **InvestmentTable**: Sortable, filterable table with CRUD operations
 - **InvestmentModal**: Form for adding/editing investments
 - **InvestmentCharts**: Pie charts and bar charts for portfolio visualization
+- **MemberModal**: Dynamic member management with add/edit/delete functionality
+- **Dynamic Tab System**: Automatically generates tabs for each family member
 
 ### Backend Services
 - **Storage Interface**: Abstraction layer for data operations
@@ -109,6 +111,9 @@ This is a full-stack investment tracking application built for managing family i
 - June 21, 2025: Connected all UI components to use real data instead of mock data
 - June 21, 2025: Fixed bar chart to display investment names instead of symbols
 - June 21, 2025: Added automatic price updates every 15 minutes
+- June 21, 2025: Fixed bar chart asset names to display horizontally without going off page
+- June 21, 2025: Increased chart sizes to better utilize available space
+- June 21, 2025: Implemented dynamic member management system with add/edit/delete functionality
 
 ## User Preferences
 

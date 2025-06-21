@@ -3,14 +3,16 @@ import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
-import { PlusCircle, TrendingUp, TrendingDown, DollarSign, Wallet } from "lucide-react";
+import { PlusCircle, TrendingUp, TrendingDown, DollarSign, Wallet, Settings } from "lucide-react";
 import { MainDashboard } from "@/components/MainDashboard";
 import { MemberDashboard } from "@/components/MemberDashboard";
 import { InvestmentModal } from "@/components/InvestmentModal";
+import { MemberModal } from "@/components/MemberModal";
 import { usePortfolio, type Investment } from "@/context/PortfolioContext";
 
 const Index = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isMemberModalOpen, setIsMemberModalOpen] = useState(false);
   const [editingInvestment, setEditingInvestment] = useState<Investment | null>(null);
   const [selectedMember, setSelectedMember] = useState("");
   const { state, addInvestment, editInvestment, deleteInvestment } = usePortfolio();
@@ -46,22 +48,24 @@ const Index = () => {
         </header>
 
         <Tabs defaultValue="main" className="w-full">
-          <TabsList className="grid w-full grid-cols-5 mb-8">
+          <TabsList className={`grid w-full mb-8`} style={{ gridTemplateColumns: `repeat(${state.members.length + 2}, minmax(0, 1fr))` }}>
             <TabsTrigger value="main" className="text-sm font-medium">
               Main Dashboard
             </TabsTrigger>
-            <TabsTrigger value="manas" className="text-sm font-medium">
-              Manas
-            </TabsTrigger>
-            <TabsTrigger value="father" className="text-sm font-medium">
-              Father
-            </TabsTrigger>
-            <TabsTrigger value="mother" className="text-sm font-medium">
-              Mother
-            </TabsTrigger>
-            <TabsTrigger value="add" disabled className="text-sm font-medium opacity-50">
-              + Add Member
-            </TabsTrigger>
+            {state.members.map((member) => (
+              <TabsTrigger key={member} value={member.toLowerCase()} className="text-sm font-medium">
+                {member}
+              </TabsTrigger>
+            ))}
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              className="text-sm font-medium h-10"
+              onClick={() => setIsMemberModalOpen(true)}
+            >
+              <Settings className="h-4 w-4 mr-1" />
+              Manage Members
+            </Button>
           </TabsList>
 
           <TabsContent value="main">
@@ -72,35 +76,19 @@ const Index = () => {
             />
           </TabsContent>
 
-          <TabsContent value="manas">
-            <MemberDashboard 
-              member="Manas"
-              investments={state.investments.filter(inv => inv.member === "Manas")}
-              onAddInvestment={() => handleAddInvestment("Manas")}
-              onEditInvestment={handleEditInvestment}
-              onDeleteInvestment={deleteInvestment}
-            />
-          </TabsContent>
+          {state.members.map((member) => (
+            <TabsContent key={member} value={member.toLowerCase()}>
+              <MemberDashboard 
+                member={member}
+                investments={state.investments.filter(inv => inv.member === member)}
+                onAddInvestment={() => handleAddInvestment(member)}
+                onEditInvestment={handleEditInvestment}
+                onDeleteInvestment={deleteInvestment}
+              />
+            </TabsContent>
+          ))}
 
-          <TabsContent value="father">
-            <MemberDashboard 
-              member="Father"
-              investments={state.investments.filter(inv => inv.member === "Father")}
-              onAddInvestment={() => handleAddInvestment("Father")}
-              onEditInvestment={handleEditInvestment}
-              onDeleteInvestment={deleteInvestment}
-            />
-          </TabsContent>
 
-          <TabsContent value="mother">
-            <MemberDashboard 
-              member="Mother"
-              investments={state.investments.filter(inv => inv.member === "Mother")}
-              onAddInvestment={() => handleAddInvestment("Mother")}
-              onEditInvestment={handleEditInvestment}
-              onDeleteInvestment={deleteInvestment}
-            />
-          </TabsContent>
         </Tabs>
 
         <InvestmentModal
@@ -109,6 +97,11 @@ const Index = () => {
           onSave={handleSaveInvestment}
           member={selectedMember}
           editingInvestment={editingInvestment}
+        />
+        
+        <MemberModal
+          isOpen={isMemberModalOpen}
+          onClose={() => setIsMemberModalOpen(false)}
         />
       </div>
     </div>

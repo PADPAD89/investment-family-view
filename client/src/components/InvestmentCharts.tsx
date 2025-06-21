@@ -108,16 +108,15 @@ export const InvestmentCharts: React.FC<InvestmentChartsProps> = ({ investments 
           <CardTitle>Top Investments by Value</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="h-64 w-full">
+          <div className="h-80 w-full">
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={topInvestments} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+              <BarChart data={topInvestments} margin={{ top: 20, right: 30, left: 20, bottom: 80 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
                 <XAxis 
                   dataKey="name" 
-                  tick={{ fontSize: 12 }}
-                  angle={-45}
-                  textAnchor="end"
-                  height={60}
+                  tick={{ fontSize: 11 }}
+                  interval={0}
+                  height={80}
                 />
                 <YAxis 
                   tick={{ fontSize: 12 }}

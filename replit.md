@@ -121,6 +121,8 @@ This is a full-stack investment tracking application built for managing family i
 - June 21, 2025: Built complete local backend with Node.js + SQLite + Express
 - June 21, 2025: Implemented automated price scraping with scheduled updates
 - June 21, 2025: Added full RESTful API with CRUD operations for members and investments
+- June 21, 2025: Implemented real stock price scraping from Screener.in using axios and cheerio
+- June 21, 2025: Added intelligent price extraction with fallback strategies and error handling
 
 ## User Preferences
 

@@ -1,5 +1,6 @@
 import express from 'express';
 import db from '../db.js';
+import priceUpdater from '../utils/priceUpdater.js';
 
 const router = express.Router();
 
@@ -201,6 +202,24 @@ router.delete('/investments/:id', async (req, res) => {
   } catch (error) {
     console.error('Error deleting investment:', error);
     res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// POST /api/update-prices - Manually trigger price updates
+router.post('/update-prices', async (req, res) => {
+  try {
+    console.log('Manual price update triggered via API');
+    await priceUpdater.updateAllPrices();
+    res.json({ 
+      message: 'Price update completed successfully',
+      timestamp: new Date().toISOString()
+    });
+  } catch (error) {
+    console.error('Error during manual price update:', error);
+    res.status(500).json({ 
+      error: 'Failed to update prices',
+      message: error.message 
+    });
   }
 });
 

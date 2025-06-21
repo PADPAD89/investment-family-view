@@ -1,9 +1,8 @@
-
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { edit, trash-2 } from "lucide-react";
+import { Edit, Trash2 } from "lucide-react";
 import { Investment } from "@/hooks/useInvestmentData";
 
 interface InvestmentTableProps {
@@ -227,14 +226,14 @@ export const InvestmentTable: React.FC<InvestmentTableProps> = ({
                           size="sm"
                           onClick={() => onEditInvestment(investment)}
                         >
-                          <edit className="h-4 w-4" />
+                          <Edit className="h-4 w-4" />
                         </Button>
                         <Button 
                           variant="outline" 
                           size="sm"
                           onClick={() => onDeleteInvestment(investment.id)}
                         >
-                          <trash-2 className="h-4 w-4" />
+                          <Trash2 className="h-4 w-4" />
                         </Button>
                       </div>
                     </td>

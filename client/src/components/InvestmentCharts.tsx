@@ -29,7 +29,7 @@ export const InvestmentCharts: React.FC<InvestmentChartsProps> = ({ investments 
   const topInvestments = React.useMemo(() => {
     return investments
       .map(inv => ({
-        name: inv.symbol,
+        name: inv.name,
         value: inv.units * inv.currentPrice,
         type: inv.type
       }))

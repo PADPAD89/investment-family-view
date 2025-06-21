@@ -103,7 +103,12 @@ This is a full-stack investment tracking application built for managing family i
 - **Connection**: Environment variable `DATABASE_URL` required
 
 ## Changelog
-- June 21, 2025. Initial setup
+- June 21, 2025: Initial setup - migrated from Lovable to Replit
+- June 21, 2025: Implemented dynamic state management with React Context
+- June 21, 2025: Added portfolio calculation utilities
+- June 21, 2025: Connected all UI components to use real data instead of mock data
+- June 21, 2025: Fixed bar chart to display investment names instead of symbols
+- June 21, 2025: Added automatic price updates every 15 minutes
 
 ## User Preferences
 

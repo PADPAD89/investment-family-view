@@ -1,6 +1,8 @@
 import React, { createContext, useContext, useReducer, ReactNode } from 'react';
 import { Investment } from '../hooks/useInvestmentData';
 
+export type { Investment };
+
 interface PortfolioState {
   members: string[];
   investments: Investment[];
@@ -136,10 +138,16 @@ export function PortfolioProvider({ children }: { children: ReactNode }) {
   const updatePrices = () => {
     const priceUpdates = state.investments.map(inv => ({
       id: inv.id,
-      currentPrice: inv.currentPrice * (0.95 + Math.random() * 0.1) // ±5% price variation
+      currentPrice: Math.round(inv.currentPrice * (0.95 + Math.random() * 0.1)) // ±5% price variation
     }));
     dispatch({ type: 'UPDATE_PRICES', payload: priceUpdates });
   };
+
+  // Auto-update prices every 15 minutes
+  React.useEffect(() => {
+    const interval = setInterval(updatePrices, 15 * 60 * 1000); // 15 minutes
+    return () => clearInterval(interval);
+  }, [state.investments]);
 
   return (
     <PortfolioContext.Provider value={{

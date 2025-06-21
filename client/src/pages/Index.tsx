@@ -42,13 +42,23 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="container mx-auto p-6">
-        <header className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Local Investment Dashboard</h1>
-          <p className="text-gray-600">Track and manage your family's investment portfolio</p>
+        <header className="mb-8 flex justify-between items-start">
+          <div>
+            <h1 className="text-3xl font-bold text-gray-900 mb-2">Local Investment Dashboard</h1>
+            <p className="text-gray-600">Track and manage your family's investment portfolio</p>
+          </div>
+          <Button 
+            variant="outline" 
+            onClick={() => setIsMemberModalOpen(true)}
+            className="flex items-center gap-2"
+          >
+            <Settings className="h-4 w-4" />
+            Manage Members
+          </Button>
         </header>
 
         <Tabs defaultValue="main" className="w-full">
-          <TabsList className={`grid w-full mb-8`} style={{ gridTemplateColumns: `repeat(${state.members.length + 2}, minmax(0, 1fr))` }}>
+          <TabsList className={`grid w-full mb-8`} style={{ gridTemplateColumns: `repeat(${state.members.length + 1}, minmax(0, 1fr))` }}>
             <TabsTrigger value="main" className="text-sm font-medium">
               Main Dashboard
             </TabsTrigger>
@@ -57,15 +67,6 @@ const Index = () => {
                 {member}
               </TabsTrigger>
             ))}
-            <Button 
-              variant="ghost" 
-              size="sm" 
-              className="text-sm font-medium h-10"
-              onClick={() => setIsMemberModalOpen(true)}
-            >
-              <Settings className="h-4 w-4 mr-1" />
-              Manage Members
-            </Button>
           </TabsList>
 
           <TabsContent value="main">

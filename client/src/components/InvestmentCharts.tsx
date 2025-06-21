@@ -61,22 +61,22 @@ export const InvestmentCharts: React.FC<InvestmentChartsProps> = ({ investments 
   };
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
       {/* Asset Allocation Pie Chart */}
       <Card>
         <CardHeader>
           <CardTitle>Asset Allocation</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="h-64 w-full">
+          <div className="h-[400px] w-full">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
                 <Pie
                   data={assetAllocation}
                   cx="50%"
                   cy="50%"
-                  innerRadius={60}
-                  outerRadius={100}
+                  innerRadius={70}
+                  outerRadius={150}
                   paddingAngle={5}
                   dataKey="value"
                 >
@@ -108,7 +108,7 @@ export const InvestmentCharts: React.FC<InvestmentChartsProps> = ({ investments 
           <CardTitle>Top Investments by Value</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="h-80 w-full">
+          <div className="h-[400px] w-full">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={topInvestments} margin={{ top: 20, right: 30, left: 20, bottom: 80 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
